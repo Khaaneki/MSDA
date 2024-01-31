@@ -19,7 +19,7 @@ class MailService
     }
 
 //...
-public function sendMail($expediteur,$destinataire,$sujet,$message)
+public function sendMail($expediteur,$destinataire,$sujet,$demande,$prenom)
 {
 
 $email = (new TemplatedEmail())
@@ -40,9 +40,9 @@ $email = (new TemplatedEmail())
 ->context([
         'expiration_date' => new \DateTime('+7 days'),
         'username' => 'foo',
-         'user' => $expediteur,
-        'objet' => $sujet,
-        'message' => $message
+         'Nom' => $expediteur,
+        'Prenom' => $prenom,
+        'demande' => $demande
     ]);
 
 $this->mailer->send($email);

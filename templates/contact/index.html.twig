@@ -1,28 +1,24 @@
 {% extends 'district.html.twig' %}
 
+{% block title %}Contact{% endblock %}
+
 {% block body %}
+	<div class="container">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
 
-    <div class="row text-center text-light">
+		{% for message in app.flashes('danger') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
 
-        {{ form_start(form) }}
-        <div class="my-custom-class-for-errors">
-            {{ form_errors(form) }}
-        </div>
+		<h1>Formulaire de contact</h1>
 
-        <div class="row pt-4">
-            {{ form_label(form.objet, "Mon libellé a été modifié") }}
-            {{ form_widget(form.objet, {'attr': {'class': 'btn-light'} }) }}
-            {{ form_errors(form.objet) }}
-        </div>
-        {{ form_end(form) }}
+		{{ form(form) }}
+		</div>
+	{% endblock %}
 
-        {# this form theme will be applied only to the form of this template #}
-        {% form_theme form 'foundation_5_layout.html.twig' %}
-
-        {{ form_start(form) }}
-            {# ... #}
-        {{ form_end(form) }}
-
-    </div>
-
-{% endblock %}

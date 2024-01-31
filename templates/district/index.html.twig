@@ -1,20 +1,22 @@
 {% extends 'district.html.twig' %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %}District{% endblock %}
 
 {% block body %}
     <div class="row row-cols-1 row-md-cols-2 justify-content-center d-flex text-center">
-        <div class="col-12 col-md-4 d-flex pt-4 justify-content-center">
-            <a href="{{ path('route_name', {'category': row.libelle|url_encode}) }}">
-                <div class="card bg-dark text-light d-flex" style="max-width: 18rem;">
-                    <div class="card-header">
-                        <p class="h3 text-center">{{ row.libelle }}</p>
+        {% for category in categories %}
+            <div class="col-12 col-md-4 d-flex pt-4 justify-content-center">
+                <a href="{{ path('route_name', { 'name': categories.name | upper }) }}">
+                    <div class="card bg-dark text-light d-flex" style="max-width: 18rem;">
+                        <div class="card-header">
+                            <p class="h3 text-center">{{ category.libelle }}</p>
+                        </div>
+                        <div class="card-body">
+                            <img class="card-img-top" src="{{ asset('assets/cat/' ~ categories.image) }}" alt="image">
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <img class="card-img-top" src="{{ asset('assets/cat/' ~ row.image) }}" alt="image">
-                    </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

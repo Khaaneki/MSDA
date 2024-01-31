@@ -14,28 +14,54 @@ class Contact
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $objet = null;
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $prenom = null;
+
+    #[ORM\Column(length: 180)]
     private ?string $email = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $message = null;
+    #[ORM\Column(length: 20)]
+    private ?string $telephone = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $demande = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getObjet(): ?string
+    public function getNom(): ?string
     {
-        return $this->objet;
+        return $this->nom;
     }
 
-    public function setObjet(string $objet): static
+    public function setNom(?string $nom): static
     {
-        $this->objet = $objet;
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(?string $prenom): static
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }
@@ -52,14 +78,38 @@ class Contact
         return $this;
     }
 
-    public function getMessage(): ?string
+    public function getTelephone(): ?string
     {
-        return $this->message;
+        return $this->telephone;
     }
 
-    public function setMessage(?string $message): static
+    public function setTelephone(string $telephone): static
     {
-        $this->message = $message;
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getDemande(): ?string
+    {
+        return $this->demande;
+    }
+
+    public function setDemande(string $demande): static
+    {
+        $this->demande = $demande;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

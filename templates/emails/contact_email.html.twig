@@ -1,16 +1,22 @@
-<h1>Welcome {{ email.toName }}!</h1>
+<h1>Bonjour {{ email.toName }}!</h1>
 
     <p>
-        You signed up as : {{ user }} :
+        vous êtes connecté en tant que : {{ email.to[0].address }}
     </p>
-    <p><code>{{ email.to[0].address }}</code></p>
-        
     <p>
         <p>
-        voici l'objet : {{ objet }}
+        Nom : {{nom}}
+        <p>
+        Prénom : {{ prenom }}
         </p>
         <p>
-        voila le message : {{ message }}
+        Email {{ email }}
+        </p>
+        <p>
+            Téléphone : {{ telephone }}
+            </p>
+        <p>
+        Demande : {{ demande }}
         </p>
     <a href="#">Click here to activate your account</a>
         (this link is valid until {{ expiration_date|date('F jS') }})

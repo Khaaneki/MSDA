@@ -24,16 +24,17 @@ class ContactController extends AbstractController
             $message = new Contact();
         
                     // Traitement des données du formulaire
+            $message->setNom($form->get('nom')->getData());
+            $message->setPrenom($form->get('prenom')->getData());
             $message->setEmail($form->get('email')->getData());
-            $message->setObjet($form->get('objet')->getData());
-            $message->setMessage($form->get('message')->getData());
+            $message->setDemande($form->get('demande')->getData());
         
             // Persistance des données
             $entityManager->persist($message);
             $entityManager->flush();
 
             // Envoi de mail avec notre service MailService
-            $email = $ms->sendMail('District@purple.com', $message->getEmail(), $message->getObjet(), $message->getMessage());
+            $email = $ms->sendMail('District@purple.com', $message->getEmail() , $message->getNom(), $message->getPrenom(), $message->getEmail(), $message->getDemande());
 
             return $this->redirect("/district");
         }

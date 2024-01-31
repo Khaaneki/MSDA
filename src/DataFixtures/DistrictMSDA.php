@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use app\Entity\Categorie;
+use App\Entity\Categorie;
 use App\Entity\Plat;
 use App\Entity\Commande;
 use DateTime;
@@ -15,6 +15,8 @@ class DistrictMSDA extends Fixture
     public function load(ObjectManager $manager): void
     {
        
+        //Categorie
+
         $categorie1 = new Categorie();
 
         $categorie1->setlibelle("Pizza");
@@ -32,15 +34,17 @@ class DistrictMSDA extends Fixture
         $categorie3 = new Categorie();
 
         $categorie3->setlibelle("Asian Food");
-        $categorie3->setimage("asian_food_cat.jp");
+        $categorie3->setimage("asian_food_cat.jpg");
         $categorie3->setIsActive('1');
 
         $manager->persist($categorie3);
         $manager->flush();
 
+        //Plat
+
         $plat1 = new Plat();
 
-        $plat1->setcategorie($categorie3);
+        $plat1->setcategorie($categorie3->getid());
         $plat1->setlibelle('Maki');
         $plat1->setdescription('saumon, algue, riz');
         $plat1->setprix(7.50);
@@ -50,7 +54,7 @@ class DistrictMSDA extends Fixture
 
         $plat2 = new Plat();
 
-        $plat2->setcategorie($categorie3);
+        $plat2->setcategorie($categorie3->getid());
         $plat2->setlibelle('Nems');
         $plat2->setdescription('poulet, vermicelles de riz, sauce nuoc mam');
         $plat2->setprix(4.50);
@@ -60,7 +64,7 @@ class DistrictMSDA extends Fixture
 
         $plat3 = new Plat();
 
-        $plat3->setcategorie($categorie2);
+        $plat3->setcategorie($categorie2->getid());
         $plat3->setlibelle('Royal');
         $plat3->setdescription('steak haché, salade, bacon');
         $plat3->setprix(7.50);
@@ -70,7 +74,7 @@ class DistrictMSDA extends Fixture
 
         $plat4 = new Plat();
 
-        $plat4->setcategorie($categorie2);
+        $plat4->setcategorie($categorie2->getid());
         $plat4->setlibelle('Slider');
         $plat4->setdescription('steak haché, salade, tomate, fromage');
         $plat4->setprix(9.50);
@@ -80,7 +84,7 @@ class DistrictMSDA extends Fixture
 
         $plat5 = new Plat();
 
-        $plat5->setcategorie($categorie1);
+        $plat5->setcategorie($categorie1->getid());
         $plat5->setlibelle('Burger');
         $plat5->setdescription('boeuf haché, tomate, oignon, cheddar, sauce tomate 	');
         $plat5->setprix(13.50);
@@ -90,7 +94,7 @@ class DistrictMSDA extends Fixture
         
         $plat6 = new Plat();
         
-        $plat6->setcategorie($categorie1);
+        $plat6->setcategorie($categorie1->getid());
         $plat6->setlibelle('Norvegienne');
         $plat6->setdescription('crème fraiche, saumon, mozzarella');
         $plat6->setprix(12.50);
@@ -117,9 +121,7 @@ class DistrictMSDA extends Fixture
         $utilisateur2 = $manager->getRepository(Utilisateur::class)->find(2);
         $commande2->setUtilisateur($utilisateur2);
         $manager->persist($commande2);
-
+        
         $manager->flush();
-
-
     }
 }
