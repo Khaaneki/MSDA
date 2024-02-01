@@ -1,23 +1,25 @@
-<h1>Bonjour {{ email.toName }}!</h1>
+<h1>Bonjour {{ context.email.toNomComplet }}!</h1>
 
     <p>
-        vous êtes connecté en tant que : {{ email.to[0].address }}
+        Vous êtes connecté en tant que : {{ context.email.to[0].address }}
     </p>
+    
     <p>
-        <p>
-        Nom : {{nom}}
-        <p>
-        Prénom : {{ prenom }}
-        </p>
-        <p>
-        Email {{ email }}
-        </p>
-        <p>
-            Téléphone : {{ telephone }}
-            </p>
-        <p>
-        Demande : {{ demande }}
-        </p>
-    <a href="#">Click here to activate your account</a>
-        (this link is valid until {{ expiration_date|date('F jS') }})
+        Nom / Prénom: {{ context.contact.getNomComplet() }}
     </p>
+    
+    <p>
+        Email : {{ context.contact.getEmail() }}
+    </p>
+    
+    <p>
+        Sujet : {{ context.contact.getSujet() }}
+    </p>
+    
+    <p>
+        Demande : {{ context.contact.getMessage() }}
+    </p>
+    
+    <a href="#">Click here to activate your account</a>
+    (this link is valid until {{ context.expiration_date|date('F jS') }})
+    

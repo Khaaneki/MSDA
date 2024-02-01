@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Contact;
 use App\Form\ContactFormType;
 use App\Service\MailService;
@@ -12,6 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+// ContactController.php
+// ...
+
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
@@ -21,25 +24,37 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $message = new Contact();
-        
-                    // Traitement des données du formulaire
-            $message->setNom($form->get('nom')->getData());
-            $message->setPrenom($form->get('prenom')->getData());
-            $message->setEmail($form->get('email')->getData());
-            $message->setDemande($form->get('demande')->getData());
-        
+            $contact = new Contact();
+
+            // Traitement des données du formulaire
+            $contact->setNomComplet($form->get('nomComplet')->getData());
+            $contact->setEmail($form->get('email')->getData());
+            $contact->setSujet($form->get('sujet')->getData());
+            $contact->setMessage($form->get('message')->getData());
+
             // Persistance des données
-            $entityManager->persist($message);
+            $entityManager->persist($contact);
             $entityManager->flush();
 
             // Envoi de mail avec notre service MailService
-            $email = $ms->sendMail('District@purple.com', $message->getEmail() , $message->getNom(), $message->getPrenom(), $message->getEmail(), $message->getDemande());
-
+            $expirationDate = new \DateTime();
+            $emailContext = [
+                'email' => [
+                    'toName' => 'Your To Name',
+                    'to' => [['address' => 'recipient@example.com']]
+                ],
+                'contact' => $contact,
+                'expiration_date' => $expirationDate,
+            ];
+            
+            $email = $ms->sendEmail('District@purple.com', $contact->getSujet(), '/emails/contact_email.html.twig', $emailContext, $contact->getEmail());
+            
             return $this->redirect("/district");
         }
+
         return $this->render('/contact/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 }
+

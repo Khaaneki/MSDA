@@ -3,33 +3,36 @@
 namespace App\Entity;
 
 use App\Repository\ContactRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: 'integer')]
+    private ?int $id;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $nom = null;
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    #[Assert\Length(min: 2, max: 50)]
+    private ?string $nomComplet = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $prenom = null;
+    #[ORM\Column(type: 'string', length: 180)]
+    #[Assert\Email()]
+    #[Assert\Length(min: 2, max: 180)]
+    private string $email;
 
-    #[ORM\Column(length: 180)]
-    private ?string $email = null;
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    #[Assert\Length(min: 2, max: 100)]
+    private ?string $sujet = null;
 
-    #[ORM\Column(length: 20)]
-    private ?string $telephone = null;
+    #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank()]
+    private string $message;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $demande = null;
-
-    #[ORM\Column]
+    #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt;
 
     public function __construct()
@@ -42,26 +45,14 @@ class Contact
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getNomComplet(): ?string
     {
-        return $this->nom;
+        return $this->nomComplet;
     }
 
-    public function setNom(?string $nom): static
+    public function setNomComplet(?string $nomComplet): self
     {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(?string $prenom): static
-    {
-        $this->prenom = $prenom;
+        $this->nomComplet = $nomComplet;
 
         return $this;
     }
@@ -71,33 +62,33 @@ class Contact
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
 
-    public function getTelephone(): ?string
+    public function getSujet(): ?string
     {
-        return $this->telephone;
+        return $this->sujet;
     }
 
-    public function setTelephone(string $telephone): static
+    public function setSujet(?string $sujet): self
     {
-        $this->telephone = $telephone;
+        $this->sujet = $sujet;
 
         return $this;
     }
 
-    public function getDemande(): ?string
+    public function getMessage(): ?string
     {
-        return $this->demande;
+        return $this->message;
     }
 
-    public function setDemande(string $demande): static
+    public function setMessage(string $message): self
     {
-        $this->demande = $demande;
+        $this->message = $message;
 
         return $this;
     }
@@ -107,7 +98,7 @@ class Contact
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 
