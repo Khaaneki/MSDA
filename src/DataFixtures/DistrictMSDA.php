@@ -102,6 +102,8 @@ class DistrictMSDA extends Fixture
         $plat6->setIsActive(1);
         $manager->persist($plat6);
 
+        //Commande
+
         $commande1 = new Commande();
         $date1 = new DateTime();
 

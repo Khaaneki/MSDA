@@ -12,9 +12,6 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-// ContactController.php
-// ...
-
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
@@ -36,7 +33,6 @@ class ContactController extends AbstractController
             $entityManager->persist($contact);
             $entityManager->flush();
 
-            // Envoi de mail avec notre service MailService
             $expirationDate = new \DateTime();
             $emailContext = [
                 'email' => [

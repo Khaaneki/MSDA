@@ -19,16 +19,13 @@ class ContactSubscriber implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        //retourne un tableau d'événements (prePersist, postPersist, preUpdate etc...)
         return [
-            //événement déclenché après l'insert dans la base de donnée
             Events::postPersist,
         ];
     }
 
     public function postPersist(LifecycleEventArgs $args)
     {
-//        $args->getObject() nous retourne l'entité concernée par l'événement postPersist
         $entity = $args->getObject();
 
 //     Vérifier si l'entité est un nouvel objet de type Contact;

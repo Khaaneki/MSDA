@@ -22,6 +22,9 @@ class Detail
     #[ORM\Column(length: 255)]
     private ?string $plat = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Details')]
+    private ?Plat $Plat = null;
+
     public function getId(): ?int
     {
         return $this->id;

@@ -35,6 +35,9 @@ class Plat
     #[ORM\Column(length: 255)]
     private ?string $details = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Plat')]
+    private ?Categorie $plats = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -127,6 +130,18 @@ class Plat
     public function setDetails(string $details): static
     {
         $this->details = $details;
+
+        return $this;
+    }
+
+    public function getPlats(): ?Categorie
+    {
+        return $this->plats;
+    }
+
+    public function setPlats(?Categorie $plats): static
+    {
+        $this->plats = $plats;
 
         return $this;
     }

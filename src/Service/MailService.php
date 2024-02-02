@@ -1,5 +1,5 @@
 <?php
-// MailService.php
+
 namespace App\Service;
 
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -21,7 +21,7 @@ class MailService
             ->to($to)
             ->subject($subject)
             ->htmlTemplate($htmlTemplate)
-            ->context(['context' => $context]); // Utiliser la clé 'context'
+            ->context(['context' => $context]);
 
         $this->mailer->send($email);
     }
