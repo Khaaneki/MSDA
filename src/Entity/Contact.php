@@ -16,7 +16,7 @@ class Contact
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     #[Assert\Length(min: 2, max: 50)]
-    private ?string $nomComplet = null;
+    private ?string $nom = null;
 
     #[ORM\Column(type: 'string', length: 180)]
     #[Assert\Email()]
@@ -45,14 +45,14 @@ class Contact
         return $this->id;
     }
 
-    public function getNomComplet(): ?string
+    public function getNom(): ?string
     {
-        return $this->nomComplet;
+        return $this->nom;
     }
 
-    public function setNomComplet(?string $nomComplet): self
+    public function setNom(?string $nom): self
     {
-        $this->nomComplet = $nomComplet;
+        $this->nom = $nom;
 
         return $this;
     }

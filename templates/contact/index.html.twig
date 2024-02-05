@@ -1,24 +1,17 @@
 {% extends 'district.html.twig' %}
 
-{% block title %}Contact
+{% block title %}District - Contact
 {% endblock %}
 
 {% block body %}
-	<div class="container text-light">
-		{% for contact in app.flashes('success') %}
-			<div class="alert alert-success mt-4">
-				{{ contact }}
-			</div>
-		{% endfor %}
+    <div class="container text-light">
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success mt-4">
+    {{ message }}
+</div>
+{% endfor %}
 
-		{% for contact in app.flashes('danger') %}
-			<div class="alert alert-success mt-4">
-				{{ contact }}
-			</div>
-		{% endfor %}
-
-		<h1>Formulaire de contact</h1>
-
-		{{ form(form) }}
-		</div>
-	{% endblock %}
+<h1>Formulaire de contact</h1>
+    {{ form(form) }}
+    </div>
+{% endblock %}

@@ -32,7 +32,7 @@ class ContactSubscriber implements EventSubscriber
 //    Si l'objet persité n'est pas de type Contact, on ne veut pas que le Subscriber se déclenche!
         if ($entity instanceof \App\Entity\Contact) {
 
-            $nom = $entity->getNomComplet();
+            $nom = $entity->getNom();
             $email = $entity->getEmail();
             $sujet = $entity->getSujet();
             $demande = $entity->getMessage();
@@ -44,7 +44,7 @@ class ContactSubscriber implements EventSubscriber
                     ->from('votre_adresse_email@example.com')
                     ->to('admin@district.com')
                     ->subject('Alerte RGPD')
-                    ->text("Un nouveau message en rapport avec la loi sur les RGPD vous a été envoyé! L'id du message : " .$entity->getId(). " \n Nom et Prénom : " .$entity->getNomComplet(). " \n Address Email " .$entity->getEmail() . " \n Sujet : " .$entity->getSujet(). " \n Demande : " .$entity->getMessage());
+                    ->text("Un nouveau message en rapport avec la loi sur les RGPD vous a été envoyé! L'id du message : " .$entity->getId(). " \n Nom et Prénom : " .$entity->getNom(). " \n Address Email " .$entity->getEmail() . " \n Sujet : " .$entity->getSujet(). " \n Demande : " .$entity->getMessage());
 
                 $this->mailer->send($email);
             }

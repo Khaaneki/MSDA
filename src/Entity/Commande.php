@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommandeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,22 +25,30 @@ class Commande
     #[ORM\Column]
     private ?int $etat = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $details = null;
+    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Detail::class, cascade: ['persist'] )]
+    private Collection $details;
 
-    #[ORM\Column(length: 255)]
-    private ?string $utilisateur = null;
+    #[ORM\ManyToOne(inversedBy: 'commandes')]
+    private ?Utilisateur $utilisateur = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $adresse_Livraison = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $adresse_Facturation = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $Paiement = null;
+
+    public function __construct()
+    {
+        $this->details = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(string $id): static
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getDateCommande(): ?\DateTimeInterface
@@ -77,27 +87,82 @@ class Commande
         return $this;
     }
 
-    public function getDetails(): ?string
+    /**
+     * @return Collection<int, Detail>
+     */
+    public function getDetails(): Collection
     {
         return $this->details;
     }
 
-    public function setDetails(string $details): static
+    public function addDetail(Detail $detail): static
     {
-        $this->details = $details;
+        if (!$this->details->contains($detail)) {
+            $this->details->add($detail);
+            $detail->setCommande($this);
+        }
 
         return $this;
     }
 
-    public function getUtilisateur(): ?string
+    public function removeDetail(Detail $detail): static
+    {
+        if ($this->details->removeElement($detail)) {
+            // set the owning side to null (unless already changed)
+            if ($detail->getCommande() === $this) {
+                $detail->setCommande(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
     {
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(string $utilisateur): static
+    public function setUtilisateur(?Utilisateur $utilisateur): static
     {
         $this->utilisateur = $utilisateur;
 
         return $this;
     }
+
+    public function getAdresseLivraison(): ?string
+    {
+        return $this->adresse_Livraison;
+    }
+
+    public function setAdresseLivraison(?string $adresse_Livraison): static
+    {
+        $this->adresse_Livraison = $adresse_Livraison;
+
+        return $this;
+    }
+
+    public function getAdresseFacturation(): ?string
+    {
+        return $this->adresse_Facturation;
+    }
+
+    public function setAdresseFacturation(?string $adresse_Facturation): static
+    {
+        $this->adresse_Facturation = $adresse_Facturation;
+
+        return $this;
+    }
+
+    public function getPaiement(): ?string
+    {
+        return $this->Paiement;
+    }
+
+    public function setPaiement(?string $Paiement): static
+    {
+        $this->Paiement = $Paiement;
+
+        return $this;
+    }
+
 }

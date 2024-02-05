@@ -3,9 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\PlatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: PlatRepository::class)]
 class Plat
 {
@@ -29,25 +33,20 @@ class Plat
     #[ORM\Column]
     private ?bool $isActive = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $categorie = null;
+    #[ORM\ManyToOne(inversedBy: 'Plats')]
+    private ?Categorie $categorie = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $details = null;
+    #[ORM\OneToMany(mappedBy: 'plat', targetEntity: Detail::class)]
+    private Collection $details;
 
-    #[ORM\ManyToOne(inversedBy: 'Plat')]
-    private ?Categorie $plats = null;
+    public function __construct()
+    {
+        $this->details = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(string $id): static
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getLibelle(): ?string
@@ -110,38 +109,44 @@ class Plat
         return $this;
     }
 
-    public function getCategorie(): ?string
+    public function getCategorie(): ?Categorie
     {
         return $this->categorie;
     }
 
-    public function setCategorie(string $categorie): static
+    public function setCategorie(?Categorie $categorie): static
     {
         $this->categorie = $categorie;
 
         return $this;
     }
 
-    public function getDetails(): ?string
+    /**
+     * @return Collection<int, Detail>
+     */
+    public function getDetails(): Collection
     {
         return $this->details;
     }
 
-    public function setDetails(string $details): static
+    public function addDetail(Detail $detail): static
     {
-        $this->details = $details;
+        if (!$this->details->contains($detail)) {
+            $this->details->add($detail);
+            $detail->setPlat($this);
+        }
 
         return $this;
     }
 
-    public function getPlats(): ?Categorie
+    public function removeDetail(Detail $detail): static
     {
-        return $this->plats;
-    }
-
-    public function setPlats(?Categorie $plats): static
-    {
-        $this->plats = $plats;
+        if ($this->details->removeElement($detail)) {
+            // set the owning side to null (unless already changed)
+            if ($detail->getPlat() === $this) {
+                $detail->setPlat(null);
+            }
+        }
 
         return $this;
     }

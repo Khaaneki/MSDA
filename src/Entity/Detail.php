@@ -16,25 +16,15 @@ class Detail
     #[ORM\Column]
     private ?int $quantite = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $commande = null;
+    #[ORM\ManyToOne(inversedBy: 'details')]
+    private ?Plat $plat = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $plat = null;
-
-    #[ORM\ManyToOne(inversedBy: 'Details')]
-    private ?Plat $Plat = null;
+    #[ORM\ManyToOne(inversedBy: 'details')]
+    private ?Commande $commande = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(string $id): static
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getQuantite(): ?int
@@ -49,26 +39,26 @@ class Detail
         return $this;
     }
 
-    public function getCommande(): ?string
-    {
-        return $this->commande;
-    }
-
-    public function setCommande(string $commande): static
-    {
-        $this->commande = $commande;
-
-        return $this;
-    }
-
-    public function getPlat(): ?string
+    public function getPlat(): ?Plat
     {
         return $this->plat;
     }
 
-    public function setPlat(string $plat): static
+    public function setPlat(?Plat $plat): static
     {
         $this->plat = $plat;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): static
+    {
+        $this->commande = $commande;
 
         return $this;
     }

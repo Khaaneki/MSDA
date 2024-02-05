@@ -17,13 +17,13 @@ class ContactFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nomComplet', TextType::class, [
+            ->add('nom', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'minlenght' => '2',
                     'maxlenght' => '50',
                 ],
-                'label' => 'Nom / Prénom',
+                'label' => 'Nom',
                 'label_attr' => [
                     'class' => 'form-label  mt-4'
                 ]

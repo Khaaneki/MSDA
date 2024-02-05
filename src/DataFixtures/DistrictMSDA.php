@@ -44,17 +44,17 @@ class DistrictMSDA extends Fixture
 
         $plat1 = new Plat();
 
-        $plat1->setcategorie($categorie3->getid());
-        $plat1->setlibelle('Maki');
-        $plat1->setdescription('saumon, algue, riz');
-        $plat1->setprix(7.50);
-        $plat1->setimage('sushiiiiii.jpeg');
+        $plat1->setCategorie($categorie3);
+        $plat1->setLibelle('Maki');
+        $plat1->setDescription('saumon, algue, riz');
+        $plat1->setPrix(7.50);
+        $plat1->setImage('sushiiiiii.jpeg');
         $plat1->setIsActive(1);
         $manager->persist($plat1);
 
         $plat2 = new Plat();
 
-        $plat2->setcategorie($categorie3->getid());
+        $plat2->setcategorie($categorie3);
         $plat2->setlibelle('Nems');
         $plat2->setdescription('poulet, vermicelles de riz, sauce nuoc mam');
         $plat2->setprix(4.50);
@@ -64,7 +64,7 @@ class DistrictMSDA extends Fixture
 
         $plat3 = new Plat();
 
-        $plat3->setcategorie($categorie2->getid());
+        $plat3->setcategorie($categorie2);
         $plat3->setlibelle('Royal');
         $plat3->setdescription('steak haché, salade, bacon');
         $plat3->setprix(7.50);
@@ -74,7 +74,7 @@ class DistrictMSDA extends Fixture
 
         $plat4 = new Plat();
 
-        $plat4->setcategorie($categorie2->getid());
+        $plat4->setcategorie($categorie2);
         $plat4->setlibelle('Slider');
         $plat4->setdescription('steak haché, salade, tomate, fromage');
         $plat4->setprix(9.50);
@@ -84,7 +84,7 @@ class DistrictMSDA extends Fixture
 
         $plat5 = new Plat();
 
-        $plat5->setcategorie($categorie1->getid());
+        $plat5->setcategorie($categorie1);
         $plat5->setlibelle('Burger');
         $plat5->setdescription('boeuf haché, tomate, oignon, cheddar, sauce tomate 	');
         $plat5->setprix(13.50);
@@ -94,7 +94,7 @@ class DistrictMSDA extends Fixture
         
         $plat6 = new Plat();
         
-        $plat6->setcategorie($categorie1->getid());
+        $plat6->setcategorie($categorie1);
         $plat6->setlibelle('Norvegienne');
         $plat6->setdescription('crème fraiche, saumon, mozzarella');
         $plat6->setprix(12.50);
