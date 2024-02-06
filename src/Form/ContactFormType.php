@@ -72,7 +72,7 @@ class ContactFormType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary mt-4'
+                    'class' => 'btn btn-secondary mt-4'
                 ],
                 'label' => 'Soumettre ma demande'
             ]);

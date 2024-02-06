@@ -1,0 +1,56 @@
+{% extends 'district.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <section class="row">
+            <div class="col-12">
+                <h1>Panier</h1>
+                <table class="table justify-content-center text-light">
+                    <thead>
+                        <tr>
+                        <th>Image</th>
+                        <th>Produit</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for element in data %}
+                            <tr>
+                                <td><img class="card-img-top" src="/images/{{element.plat.image}}" alt="image" style="width: 12rem;"></td>                                
+                                <td>{{ element.plat.libelle }}</td>
+                                <td>{{ element.plat.prix }}</td>
+                                <td>{{ element.quantite }}</td>
+                                <td>{{ element.quantite * element.plat.prix }} €</td>
+                            <td>
+                                <a href="{{ path('panier_add', {id: element.plat.id}) }}" class="btn btn-secondary">+</a>
+                                <a href="{{ path('panier_remove', {id: element.plat.id}) }}" class="btn btn-secondary">-</a>
+                                <a href="{{ path('panier_del', {id: element.plat.id}) }}" class="btn btn-secondary">supprimer</a>
+                            </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                            <td colspan="5">Votre panier est vide </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">Total</td>
+                            <td>{{ total }} €</td>
+                            <td>
+                                <a href="{{ path('panier_empty') }}" class="btn btn-secondary">Vider</a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <a href="{{ path('app_commande_add') }}" class="btn btn-secondary">Valider le panier</a>
+            <a href="{{ path('app_plat') }}" class="btn btn-secondary">Continuer mes achats</a>
+            </div>
+        </section>
+    </main>
+{% endblock %}
