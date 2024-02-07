@@ -28,12 +28,13 @@
         </div>
         <div class="mb-2 ms-auto mb-lg-0">
         {% if app.user %}
-            <a class="btn btn-outline-light" href="#">Profile</a>
+            <a class="btn btn-outline-light" href="{{ path('app_profil') }}">Profile</a>
             <a class="btn btn-outline-light" href="{{ path('app_logout') }}">Me deconnecter</a>
         {% else %}
             <a class="btn btn-outline-light" href="{{ path('app_login') }}">Se connecter</a>
             <a class="btn btn-outline-light" href="{{ path('app_register') }}">M'inscrire</a>
         {% endif %}
+            <a class="btn btn-outline-light" href="#">Panier</a>
         </div>
     </nav>
 
