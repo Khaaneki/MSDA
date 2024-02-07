@@ -50,9 +50,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $ville = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $commandes = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -203,18 +200,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVille(string $ville): static
     {
         $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getCommandes(): ?string
-    {
-        return $this->commandes;
-    }
-
-    public function setCommandes(string $commandes): static
-    {
-        $this->commandes = $commandes;
 
         return $this;
     }

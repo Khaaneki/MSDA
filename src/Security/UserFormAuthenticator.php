@@ -50,7 +50,7 @@ class UserFormAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // sinon, on l'envoie sur la page `profil`
-        return new RedirectResponse($this->urlGenerator->generate('app_profil'));
+        return new RedirectResponse($this->urlGenerator->generate('app_district'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
