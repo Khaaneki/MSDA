@@ -25,8 +25,8 @@ class CommandeController extends AbstractController
         $panier = $session->get('panier', []);
 
         if($panier === []){
-            $this->addFlash('message', 'Votre panier est vide');
-            $this->redirectToRoute('app_district');
+            $this->addFlash('warning', 'Votre panier est vide');
+            return $this->render('district/index.html.twig');
         }
         
         $form = $this->createForm(CommandeFormType::class);
@@ -60,7 +60,11 @@ class CommandeController extends AbstractController
         $em->flush();
 
         $session->remove('panier');
-        return $this->render('district/index.html.twig');
+
+        $this->addFlash(
+            'success',
+            'Votre commande a été envoyé avec succès !'
+        );
     }
         return $this->render('commande/index.html.twig', [
             'CommandeFormType' => $form->createView(),

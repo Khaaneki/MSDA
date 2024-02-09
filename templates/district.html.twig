@@ -34,9 +34,16 @@
             <a class="btn btn-outline-light" href="{{ path('app_login') }}">Se connecter</a>
             <a class="btn btn-outline-light" href="{{ path('app_register') }}">M'inscrire</a>
         {% endif %}
-            <a class="btn btn-outline-light" href="#">Panier</a>
+            <a class="btn btn-outline-light" href="{{ path('panier_index') }}">Panier</a>
         </div>
     </nav>
+
+<div class="container">
+{% for message in app.flashes('warning') %}
+<div class="alert alert-warning mt-4">
+{{ message }}
+</div>
+{% endfor %}
 
     {% block body %}{% endblock %}
 
